@@ -8,12 +8,29 @@
   ],
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "/api/$1"
+      "src": "/api/create",
+      "dest": "/api/create.js",
+      "methods": ["GET", "POST", "OPTIONS"]
     },
     {
-      "src": "/(.*)",
-      "dest": "/api/$1"
+      "src": "/([a-zA-Z0-9]+)",
+      "dest": "/api/[code].js",
+      "methods": ["GET", "OPTIONS"]
+    },
+    {
+      "src": "/",
+      "dest": "/api/create.js",
+      "methods": ["GET", "OPTIONS"]
+    }
+  ],
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        { "key": "Access-Control-Allow-Origin", "value": "*" },
+        { "key": "Access-Control-Allow-Methods", "value": "GET,OPTIONS,POST" },
+        { "key": "Access-Control-Allow-Headers", "value": "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version" }
+      ]
     }
   ]
 }
