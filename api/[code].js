@@ -1,4 +1,9 @@
-import { getLink } from './storage.js';
+// Simple in-memory storage for demo
+const links = {
+  'demo': 'https://example.com',
+  'test': 'https://google.com',
+  'github': 'https://github.com'
+};
 
 export default async function handler(req, res) {
   const { code } = req.query;
@@ -19,8 +24,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  // ✅ FIX: Get from shared storage
-  const targetUrl = getLink(code);
+  const targetUrl = links[code];
 
   if (targetUrl) {
     res.redirect(302, targetUrl);
