@@ -1,18 +1,13 @@
-// Simple storage - replace with database later
-const links = {
-  'demo': 'https://example.com',
-  'test': 'https://google.com',
-  'github': 'https://github.com'
-};
+import { setLink } from './storage.js';
 
 export default async function handler(req, res) {
-  // ✅ ADD THESE CORS HEADERS
+  // CORS headers
   res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
   res.setHeader('Access-Control-Allow-Headers', 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version');
 
-  // ✅ HANDLE OPTIONS REQUESTS (Preflight)
+  // Handle OPTIONS request
   if (req.method === 'OPTIONS') {
     res.status(200).end();
     return;
@@ -37,7 +32,9 @@ export default async function handler(req, res) {
   // Generate short code
   const shortCode = generateShortCode();
   
-  // For demo - in production, save to database
+  // ✅ FIX: Save to shared storage
+  setLink(shortCode, longUrl);
+  
   const link = {
     id: shortCode,
     longUrl,
