@@ -1,4 +1,5 @@
-import { setLink } from './storage.js';
+// Simple in-memory storage for demo
+const links = {};
 
 export default async function handler(req, res) {
   // CORS headers
@@ -32,8 +33,8 @@ export default async function handler(req, res) {
   // Generate short code
   const shortCode = generateShortCode();
   
-  // ✅ FIX: Save to shared storage
-  setLink(shortCode, longUrl);
+  // Store the link
+  links[shortCode] = longUrl;
   
   const link = {
     id: shortCode,
