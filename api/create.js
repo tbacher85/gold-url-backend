@@ -1,11 +1,18 @@
+// Simple storage - replace with database later
+const links = {
+  'demo': 'https://example.com',
+  'test': 'https://google.com',
+  'github': 'https://github.com'
+};
+
 export default async function handler(req, res) {
-  // Set CORS headers
+  // ✅ ADD THESE CORS HEADERS
   res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
   res.setHeader('Access-Control-Allow-Headers', 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version');
 
-  // Handle OPTIONS request (preflight)
+  // ✅ HANDLE OPTIONS REQUESTS (Preflight)
   if (req.method === 'OPTIONS') {
     res.status(200).end();
     return;
